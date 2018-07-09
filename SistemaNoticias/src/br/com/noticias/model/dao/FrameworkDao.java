@@ -37,6 +37,7 @@ public class FrameworkDao {
 					//this.statement = this.connection.createStatement();
 				} catch (Exception e) {
 					System.out.println("Erro: " + e.getMessage());
+					e.printStackTrace();
 				}
 		}
 		
@@ -46,10 +47,12 @@ public class FrameworkDao {
 				this.statement = this.connection.createStatement();
 				statement.execute(stmt);
 //				statement.executeQuery(stmt);
+				//Encerrar a conexão
 				return true;
 			} catch (Exception e) {
-				System.out.println("Erro: " + e.getMessage());
 				System.out.println("Statement: " + stmt);
+				System.out.println("Erro: " + e.getMessage());
+				e.printStackTrace();
 				return false;
 			}
 
@@ -61,6 +64,54 @@ public class FrameworkDao {
 				return true;
 			} else {
 				return false;
+			}
+		}
+
+		//Encerrar "#statement" para a tabela do Banco de dados
+		public  boolean  EncerrarStatement() {
+			if(this.statement != null) {
+				try {
+				statement.close();
+				return true;
+				} catch (Exception e) {
+					System.out.println("Erro: " + e.getMessage());
+					e.printStackTrace();
+					return false;
+				}
+			} else {
+				return true;
+			}
+		}
+
+		//Encerrar "#Conexão" com banco de dados
+		public  boolean  EncerrarConexao() {
+			if(this.connection != null) {
+				try {
+				connection.close();
+				return true;
+				} catch (Exception e) {
+					System.out.println("Erro: " + e.getMessage());
+					e.printStackTrace();
+					return false;
+				}
+			} else {
+				return true;
+			}
+		}
+
+		//Encerrar "#Resultset" com banco de dados
+		public  boolean  EncerrarResultset() {
+			if(this.resultset != null) {
+				try {
+				resultset.close();
+				return true;
+				} catch (Exception e) {
+					System.out.println("Erro: " + e.getMessage());
+					e.printStackTrace();
+					return false;
+				}
+			} else {
+				return true;
 			}
 		}
 
