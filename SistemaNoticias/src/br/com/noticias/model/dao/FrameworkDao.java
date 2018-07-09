@@ -34,10 +34,25 @@ public class FrameworkDao {
 			try {
 					Class.forName(driver);
 					this.connection = DriverManager.getConnection(servidor, usuario, senha);
-					this.statement = this.connection.createStatement();
+					//this.statement = this.connection.createStatement();
 				} catch (Exception e) {
 					System.out.println("Erro: " + e.getMessage());
 				}
+		}
+		
+		//Executar Statement SQL
+		public  boolean executarStatement(String stmt) {
+			try {
+				this.statement = this.connection.createStatement();
+				statement.execute(stmt);
+//				statement.executeQuery(stmt);
+				return true;
+			} catch (Exception e) {
+				System.out.println("Erro: " + e.getMessage());
+				System.out.println("Statement: " + stmt);
+				return false;
+			}
+
 		}
 
 		//Testar conexão com banco de dados
